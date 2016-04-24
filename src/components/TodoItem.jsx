@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 import TodoTextInput from './TodoTextInput';
-import { ListItem, IconButton } from 'material-ui';
+import {ListItem, IconButton} from 'material-ui';
 import * as Styles from 'material-ui/styles'
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -18,8 +18,8 @@ class TodoItem extends Component {
     };
   }
 
-  handleEdit () {
-    this.setState({ editing: true });
+  handleEdit() {
+    this.setState({editing: true});
   }
 
   handleSave(id, text) {
@@ -28,11 +28,11 @@ class TodoItem extends Component {
     } else {
       this.props.editTodo(id, text);
     }
-    this.setState({ editing: false });
+    this.setState({editing: false});
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props;
+    const {todo, completeTodo, deleteTodo} = this.props;
 
     const rightIconMenu = (
       <IconMenu iconButtonElement={
@@ -50,8 +50,8 @@ class TodoItem extends Component {
     if (this.state.editing) {
       element = (
         <TodoTextInput text={todo.text}
-                      editing={this.state.editing}
-                      onSave={(text) => this.handleSave(todo.id, text)} />
+                       editing={this.state.editing}
+                       onSave={(text) => this.handleSave(todo.id, text)}/>
       );
     } else {
       element = (

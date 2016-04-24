@@ -1,7 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import classnames from 'classnames';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
-import { RaisedButton, List, ListItem, Divider } from 'material-ui';
+import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from '../constants/TodoFilters';
+import {RaisedButton, List, ListItem, Divider} from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import InboxIcon from 'material-ui/svg-icons/content/inbox';
@@ -26,7 +26,7 @@ const FILTER_ICONS = {
 
 class Footer extends Component {
   getCountForFilter(filter) {
-    const { activeCount, completedCount } = this.props;
+    const {activeCount, completedCount} = this.props;
     if (filter === SHOW_ALL) return activeCount + completedCount;
     if (filter === SHOW_ACTIVE) return activeCount;
     if (filter === SHOW_COMPLETED) return completedCount;
@@ -34,7 +34,7 @@ class Footer extends Component {
 
   renderFilterLink(filter) {
     const title = FILTER_TITLES[filter];
-    const { filter: selectedFilter, onShow } = this.props;
+    const {filter: selectedFilter, onShow} = this.props;
     const active = filter === selectedFilter;
     const count = this.getCountForFilter(filter);
     return (
@@ -42,18 +42,18 @@ class Footer extends Component {
                 style={{color: active ? palette.primary1Color: palette.textColor}}
                 primaryText={title + (count > 0 ? ' (' +  count + ')' : '')}
                 leftIcon={FILTER_ICONS[filter]}
-                onTouchTap={() => onShow(filter)} />
+                onTouchTap={() => onShow(filter)}/>
     );
   }
 
   renderClearButton() {
-    const { completedCount, onClearCompleted } = this.props;
+    const {completedCount, onClearCompleted} = this.props;
     if (completedCount > 0) {
       return (
         <RaisedButton className="clear-completed"
                       primary={true}
                       label="Clear completed"
-                      onClick={onClearCompleted} />
+                      onClick={onClearCompleted}/>
       );
     }
   }
@@ -63,9 +63,9 @@ class Footer extends Component {
       <footer className="footer">
         <Divider style={{marginTop: 10}}/>
         <List className="filters">
-        {[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
-          this.renderFilterLink(filter)
-        )}
+          {[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
+            this.renderFilterLink(filter)
+          )}
         </List>
         {this.renderClearButton()}
       </footer>

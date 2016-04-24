@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
-import { TextField } from 'material-ui';
+import {TextField} from 'material-ui';
 
 const defaultStyle = {
   marginLeft: 20
@@ -25,7 +25,7 @@ class TodoTextInput extends Component {
   }
 
   handleChange(e) {
-    this.setState({ text: e.target.value });
+    this.setState({text: e.target.value});
   }
 
   handleBlur(e) {
@@ -41,14 +41,14 @@ class TodoTextInput extends Component {
                   edit: this.props.editing,
                   'new-todo': this.props.newTodo
                 })}
-                style={defaultStyle}
-                type="text"
-                hintText={this.props.placeholder}
-                autoFocus="true"
-                value={this.state.text}
-                onBlur={this.handleBlur.bind(this)}
-                onChange={this.handleChange.bind(this)}
-                onKeyDown={this.handleKeyDown.bind(this)} />
+                 style={defaultStyle}
+                 type="text"
+                 hintText={this.props.placeholder}
+                 autoFocus="true"
+                 value={this.state.text}
+                 onBlur={this.handleBlur.bind(this)}
+                 onChange={this.handleChange.bind(this)}
+                 onKeyDown={this.handleKeyDown.bind(this)}/>
     );
   }
 }

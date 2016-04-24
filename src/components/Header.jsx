@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import TodoTextInput from './TodoTextInput';
 
 import mui, {AppBar, Styles} from 'material-ui';
@@ -11,11 +11,11 @@ const defaultStyle = {
 
 class Header extends Component {
   static get childContextTypes() {
-    return { muiTheme: React.PropTypes.object };
+    return {muiTheme: React.PropTypes.object};
   }
 
-  getChildContext(){
-    return {  muiTheme: getMuiTheme(MyRawTheme)};
+  getChildContext() {
+    return {muiTheme: getMuiTheme(MyRawTheme)};
   }
 
   handleSave(text) {
@@ -27,11 +27,11 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-          <AppBar title="React + Redux + Material UI Boilerplate" />
-          <h1 style={defaultStyle} >todos</h1>
-          <TodoTextInput newTodo
-                         onSave={this.handleSave.bind(this)}
-                         placeholder="What needs to be done?" />
+        <AppBar title="React + Redux + Material UI Boilerplate"/>
+        <h1 style={defaultStyle}>todos</h1>
+        <TodoTextInput newTodo
+                       onSave={this.handleSave.bind(this)}
+                       placeholder="What needs to be done?"/>
       </header>
     );
   }
