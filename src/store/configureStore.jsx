@@ -1,6 +1,7 @@
-import {createStore, combineReducers} from "redux";
+import {compose, applyMiddleware, createStore, combineReducers} from "redux";
 import todos from "../reducers/todos";
 import {routerReducer} from "react-router-redux";
+import thunkMiddlware from "redux-thunk"
 
 export default function configureStore(initialState) {
 
@@ -12,7 +13,7 @@ export default function configureStore(initialState) {
   const store = createStore(
     reducer,
     initialState,
-    window.devToolsExtension ? window.devToolsExtension() : undefined
+    compose(applyMiddleware(thunkMiddlware), window.devToolsExtension ? window.devToolsExtension() : undefined)
   );
 
   if (module.hot) {
