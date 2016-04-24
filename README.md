@@ -7,7 +7,7 @@ A boilerplate for React + Redux + Material UI + ES6 syntax applications. This bo
 * [webpack](https://webpack.github.io/)
 * [Babel](https://babeljs.io/)
 * [ESLint](http://eslint.org/)
-
+* [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 
 # Usage
 ## Preparation
@@ -42,4 +42,8 @@ To put compiled files into `static` directory, type the following command.
 ```bash
 $ npm run build
 ```
+
+## Use Redux DevTools Extension
+
+* Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 
