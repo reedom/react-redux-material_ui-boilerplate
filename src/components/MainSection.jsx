@@ -1,10 +1,14 @@
-import React, {Component, PropTypes} from 'react';
-import TodoItem from './TodoItem';
-import Footer from './Footer';
-import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from '../constants/TodoFilters';
-import {Checkbox, List} from 'material-ui';
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import * as MyRawTheme from '../material_ui_raw_theme_file';
+import React, {Component, PropTypes} from "react";
+import TodoItem from "./TodoItem";
+import Footer from "./Footer";
+import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from "../constants/TodoFilters";
+import {Checkbox, List} from "material-ui";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import * as MyRawTheme from "../material_ui_raw_theme_file";
+import * as TodoActions from "../actions/todos";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import TodoTextInput from './TodoTextInput';
 
 const defaultStyle = {
   width: 300,
@@ -70,6 +74,12 @@ class MainSection extends Component {
       );
     }
   }
+  
+  handleSave(text) {
+    if (text.length !== 0) {
+      this.props.actions.addTodo(text);
+    }
+  }
 
   render() {
     const {todos, actions} = this.props;
@@ -82,15 +92,21 @@ class MainSection extends Component {
     );
 
     return (
-      <section className="main" style={defaultStyle}>
-        {this.renderToggleAll(completedCount)}
-        <List className="todo-list">
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
-          )}
-        </List>
-        {this.renderFooter(completedCount)}
-      </section>
+      <div>
+        <h1 style={defaultStyle}>todos</h1>
+        <TodoTextInput newTodo
+                       onSave={this.handleSave.bind(this)}
+                       placeholder="What needs to be done?"/>
+        <section className="main" style={defaultStyle}>
+          {this.renderToggleAll(completedCount)}
+          <List className="todo-list">
+            {filteredTodos.map(todo =>
+              <TodoItem key={todo.id} todo={todo} {...actions} />
+            )}
+          </List>
+          {this.renderFooter(completedCount)}
+        </section>
+      </div>
     );
   }
 }
@@ -100,4 +116,19 @@ MainSection.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-export default MainSection;
+function mapStateToProps(state) {
+  return {
+    todos: state.todos
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(TodoActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainSection);

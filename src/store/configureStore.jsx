@@ -1,9 +1,16 @@
-import {createStore} from 'redux';
-import rootReducer from '../reducers';
+import {createStore, combineReducers} from "redux";
+import todos from "../reducers/todos";
+import {routerReducer} from "react-router-redux";
 
 export default function configureStore(initialState) {
+
+  const reducer = combineReducers({
+    todos,
+    routing: routerReducer
+  });
+
   const store = createStore(
-    rootReducer,
+    reducer,
     initialState,
     window.devToolsExtension ? window.devToolsExtension() : undefined
   );
