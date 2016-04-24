@@ -4,8 +4,8 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import App from '../containers/App';
-import configureStore from '../store/configureStore';
+import App from './containers/App';
+import configureStore from './store/configureStore';
 
 //Needed for React Developer Tools
 window.React = React;

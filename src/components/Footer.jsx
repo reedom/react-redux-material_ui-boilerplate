@@ -8,7 +8,7 @@ import InboxIcon from 'material-ui/svg-icons/content/inbox';
 import LoopIcon from 'material-ui/svg-icons/av/loop';
 import ArchiveIcon from 'material-ui/svg-icons/content/archive';
 
-import MyRawTheme from '../src/material_ui_raw_theme_file';
+import MyRawTheme from '../material_ui_raw_theme_file';
 
 const palette = getMuiTheme(MyRawTheme).baseTheme.palette;
 

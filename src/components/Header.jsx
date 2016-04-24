@@ -3,7 +3,7 @@ import TodoTextInput from './TodoTextInput';
 
 import mui, {AppBar, Styles} from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import * as MyRawTheme from '../src/material_ui_raw_theme_file';
+import * as MyRawTheme from '../material_ui_raw_theme_file';
 
 const defaultStyle = {
   marginLeft: 20

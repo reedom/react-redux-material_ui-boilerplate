@@ -4,7 +4,7 @@ import Footer from './Footer';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import { Checkbox, List } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import * as MyRawTheme from '../src/material_ui_raw_theme_file';
+import * as MyRawTheme from '../material_ui_raw_theme_file';
 
 const defaultStyle = {
   width: 300,

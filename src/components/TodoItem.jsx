@@ -60,7 +60,7 @@ class TodoItem extends Component {
                   leftIcon={todo.completed ? <CheckBoxIcon /> : <CheckBoxBlankIcon />}
                   rightIconButton={rightIconMenu}
         />
-      );      
+      );
     }
 
     return (
