@@ -10,10 +10,14 @@ export default function configureStore(initialState) {
     routing: routerReducer
   });
 
+  const isDevEnv = process.env.NODE_ENV === 'development';
+
   const store = createStore(
-    reducer,
-    initialState,
-    compose(applyMiddleware(thunkMiddlware), window.devToolsExtension ? window.devToolsExtension() : undefined)
+	reducer,
+	initialState,
+	(isDevEnv && window.devToolsExtension) ?
+	compose(applyMiddleware(thunkMiddlware), window.devToolsExtension()) :
+	applyMiddleware(thunkMiddlware)
   );
 
   if (module.hot) {
