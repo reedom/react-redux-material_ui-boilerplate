@@ -32,7 +32,8 @@ class TodoItem extends Component {
   }
 
   render() {
-    const {todo, completeTodo, deleteTodo} = this.props;
+    const {completeTodo, deleteTodo} = this.props;
+	const {id, completed, text} = this.props.todo.toObject();
 
     const rightIconMenu = (
       <IconMenu iconButtonElement={
@@ -41,23 +42,23 @@ class TodoItem extends Component {
           </IconButton>
         }
       >
-        <MenuItem primaryText="Edit" onTouchTap={this.handleEdit.bind(this)}/>
-        <MenuItem primaryText="Delete" onTouchTap={() => deleteTodo(todo.id)}/>
+        <MenuItem primaryText="Edit" onTouchTap={() => this.handleEdit()}/>
+        <MenuItem primaryText="Delete" onTouchTap={() => deleteTodo(id)}/>
       </IconMenu>
     );
 
     let element;
     if (this.state.editing) {
       element = (
-        <TodoTextInput text={todo.text}
+        <TodoTextInput text={text}
                        editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)}/>
+                       onSave={(text) => this.handleSave(id, text)}/>
       );
     } else {
       element = (
-        <ListItem primaryText={todo.text}
-                  onTouchTap={() => completeTodo(todo.id)}
-                  leftIcon={todo.completed ? <CheckBoxIcon /> : <CheckBoxBlankIcon />}
+        <ListItem primaryText={text}
+                  onTouchTap={() => completeTodo(id)}
+                  leftIcon={completed ? <CheckBoxIcon /> : <CheckBoxBlankIcon />}
                   rightIconButton={rightIconMenu}
         />
       );
@@ -65,7 +66,7 @@ class TodoItem extends Component {
 
     return (
       <div className={classnames({
-          completed: todo.completed,
+          completed: completed,
           editing: this.state.editing
         })}>
         {element}

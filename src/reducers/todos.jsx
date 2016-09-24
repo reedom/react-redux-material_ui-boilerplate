@@ -1,47 +1,46 @@
 import {ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED} from '../constants/ActionTypes';
+import { List, Map } from 'immutable';
 
-const initialState = [{
-  text: 'Use Redux',
-  completed: false,
-  id: 0
-}];
+const initialState = List.of(
+  Map({
+	text: 'Use Redux',
+	completed: false,
+	id: 0
+  })
+);
+
+let lastId = 0;
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      return [{
-        id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+      return state.push(Map({
+        id: ++lastId,
         completed: false,
-        text: action.text
-      }, ...state];
+        text: action.payload
+      }))
 
     case DELETE_TODO:
       return state.filter(todo =>
-        todo.id !== action.id
+        todo.get('id') !== action.payload
       );
 
     case EDIT_TODO:
       return state.map(todo =>
-        todo.id === action.id ?
-          Object.assign({}, todo, {text: action.text}) :
-          todo
+        todo.get('id') === action.payload.id ? todo.set('text', action.payload.text) : todo
       );
 
     case COMPLETE_TODO:
       return state.map(todo =>
-        todo.id === action.id ?
-          Object.assign({}, todo, {completed: !todo.completed}) :
-          todo
-      );
+        todo.get('id') === action.payload ? todo.set('completed', !todo.get('completed')) : todo
+	  );
 
     case COMPLETE_ALL:
-      const areAllMarked = state.every(todo => todo.completed);
-      return state.map(todo => Object.assign({}, todo, {
-        completed: !areAllMarked
-      }));
+      const areAllMarked = state.every(todo => todo.get('completed'));
+      return state.map(todo => todo.set('completed', !areAllMarked));
 
     case CLEAR_COMPLETED:
-      return state.filter(todo => todo.completed === false);
+      return state.filter(todo => !todo.get('completed'));
 
     default:
       return state;

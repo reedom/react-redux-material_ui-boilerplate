@@ -2,6 +2,7 @@ import {compose, applyMiddleware, createStore, combineReducers} from "redux";
 import todos from "../reducers/todos";
 import {routerReducer} from "react-router-redux";
 import thunkMiddlware from "redux-thunk"
+import promiseMiddleware from 'redux-promise';
 
 export default function configureStore(initialState) {
 
@@ -11,13 +12,12 @@ export default function configureStore(initialState) {
   });
 
   const isDevEnv = process.env.NODE_ENV === 'development';
+  const middlewares = applyMiddleware(promiseMiddleware, thunkMiddlware)
 
   const store = createStore(
 	reducer,
 	initialState,
-	(isDevEnv && window.devToolsExtension) ?
-	compose(applyMiddleware(thunkMiddlware), window.devToolsExtension()) :
-	applyMiddleware(thunkMiddlware)
+	(isDevEnv && window.devToolsExtension) ? compose(middlewares, window.devToolsExtension()) : middlewares
   );
 
   if (module.hot) {

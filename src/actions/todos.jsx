@@ -1,25 +1,12 @@
 import * as types from '../constants/ActionTypes';
+import { createAction } from 'redux-actions';
 
-export function addTodo(text) {
-  return {type: types.ADD_TODO, text};
-}
+export const addTodo = createAction(types.ADD_TODO, text => {
+  return new Promise((resolve, reject) => setTimeout(() => resolve(text), 0));
+});
+export const deleteTodo     = createAction(types.DELETE_TODO);
+export const editTodo       = createAction(types.EDIT_TODO,     (id, text) => { return { id, text } });
+export const completeTodo   = createAction(types.COMPLETE_TODO);
+export const completeAll    = createAction(types.COMPLETE_ALL);
+export const clearCompleted = createAction(types.CLEAR_COMPLETED);
 
-export function deleteTodo(id) {
-  return {type: types.DELETE_TODO, id};
-}
-
-export function editTodo(id, text) {
-  return {type: types.EDIT_TODO, id, text};
-}
-
-export function completeTodo(id) {
-  return {type: types.COMPLETE_TODO, id};
-}
-
-export function completeAll() {
-  return {type: types.COMPLETE_ALL};
-}
-
-export function clearCompleted() {
-  return {type: types.CLEAR_COMPLETED};
-}

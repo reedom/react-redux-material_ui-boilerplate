@@ -17,8 +17,8 @@ const defaultStyle = {
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
-  [SHOW_ACTIVE]: todo => !todo.completed,
-  [SHOW_COMPLETED]: todo => todo.completed
+  [SHOW_ACTIVE]: todo => !todo.get('completed'),
+  [SHOW_COMPLETED]: todo => todo.get('completed')
 };
 
 class MainSection extends Component {
@@ -36,7 +36,7 @@ class MainSection extends Component {
   }
 
   handleClearCompleted() {
-    const atLeastOneCompleted = this.props.todos.some(todo => todo.completed);
+    const atLeastOneCompleted = this.props.todos.some(todo => todo.get('completed'));
     if (atLeastOneCompleted) {
       this.props.actions.clearCompleted();
     }
@@ -48,12 +48,12 @@ class MainSection extends Component {
 
   renderToggleAll(completedCount) {
     const {todos, actions} = this.props;
-    if (todos.length > 0) {
+    if (todos.size > 0) {
       return (
         <Checkbox className="toggle-all"
                   style={{marginBottom: 10}}
                   label="Toggle All"
-                  defaultChecked={completedCount === todos.length}
+                  defaultChecked={completedCount === todos.size}
                   onCheck={actions.completeAll}/>
       );
     }
@@ -62,9 +62,9 @@ class MainSection extends Component {
   renderFooter(completedCount) {
     const {todos} = this.props;
     const {filter} = this.state;
-    const activeCount = todos.length - completedCount;
+    const activeCount = todos.size - completedCount;
 
-    if (todos.length) {
+    if (todos.size) {
       return (
         <Footer completedCount={completedCount}
                 activeCount={activeCount}
@@ -87,7 +87,7 @@ class MainSection extends Component {
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter]);
     const completedCount = todos.reduce((count, todo) =>
-        todo.completed ? count + 1 : count,
+        todo.get('completed') ? count + 1 : count,
       0
     );
 
@@ -101,7 +101,7 @@ class MainSection extends Component {
           {this.renderToggleAll(completedCount)}
           <List className="todo-list">
             {filteredTodos.map(todo =>
-              <TodoItem key={todo.id} todo={todo} {...actions} />
+              <TodoItem key={todo.get('id')} todo={todo} {...actions} />
             )}
           </List>
           {this.renderFooter(completedCount)}
@@ -112,7 +112,7 @@ class MainSection extends Component {
 }
 
 MainSection.propTypes = {
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
